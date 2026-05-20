@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Fake News Detection</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Fake News Detection</h1>
+
+        <form action="/predict" method="POST">
+
+            <textarea name="news"
+            placeholder="Enter news text here..."></textarea>
+
+            <button type="submit">Predict</button>
+
+        </form>
+
+        <h2 class="
+        {% if prediction_text == 'Fake News' %}
+        fake
+        {% else %}
+        real
+        {% endif %}
+        ">
+        {{ prediction_text }}
+        </h2>
+
+        <h3>Confidence: {{ confidence }}%</h3>
+
+        <p class="warning">
+        ⚠ Prediction is based on trained dataset patterns and may not always be fully accurate.
+        </p>
+
+        <div class="history">
+
+            <h3>Recent Predictions</h3>
+
+            {% for item in history %}
+
+                <p>
+                <strong>{{ item.result }}</strong> :
+                {{ item.news[:80] }}...
+                </p>
+
+            {% endfor %}
+
+         /div>
+
+    </div>
+
+</body>
+</html>
